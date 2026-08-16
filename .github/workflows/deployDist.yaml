@@ -1,5 +1,13 @@
 name: Deploy Dist
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+    paths-ignore:
+      - '.github/workflows/*'
+      - 'README.md'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -15,6 +23,7 @@ jobs:
 
       - name: Print Node version
         run: node -v
+
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
@@ -35,23 +44,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Install Node 20
         uses: actions/setup-node@v3
         with:
           node-version: 20
+
       - name: Cache npm dependencies
         uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Deploy
-        run: echo "Deployed Successfully"

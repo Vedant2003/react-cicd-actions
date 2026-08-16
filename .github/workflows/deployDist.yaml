@@ -7,20 +7,17 @@ jobs:
     steps:
       - name: GetCode
         uses: actions/checkout@v7
-        # run: |
-        #   echo "cloning repo"
-        #   echo "${{ toJson(github) }}"
-        #   git clone https://github.com/${{ github.repository }}.git
       - name: Install Node 20
         uses: actions/setup-node@v7 
         with:
-            node-version: 20
-      - name: print node version
+          node-version: 20
+      - name: Print Node version
         run: node -v
-      - name: install dependencies
+      - name: Install dependencies
         run: npm ci
       - name: Run test cases
         run: npm run test
+
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -29,13 +26,10 @@ jobs:
       - name: Install Node 20
         uses: actions/setup-node@v7 
         with:
-            node-version: 20
-      - name: install dependencies
+          node-version: 20
+      - name: Install dependencies
         run: npm ci
       - name: Build Project
-        run: npm run buid
+        run: npm run build
       - name: Deploy
         run: echo "Deployed Successfully"
-        
-
-    

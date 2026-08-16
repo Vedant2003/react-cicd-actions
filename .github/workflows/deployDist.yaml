@@ -21,3 +21,21 @@ jobs:
         run: npm ci
       - name: Run test cases
         run: npm run test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GetCode
+        uses: actions/checkout@v7
+      - name: Install Node 20
+        uses: actions/setup-node@v7 
+        with:
+            node-version: 20
+      - name: install dependencies
+        run: npm ci
+      - name: Build Project
+        run: npm run buid
+      - name: Deploy
+        run: echo "Deployed Successfully"
+        
+
+    
